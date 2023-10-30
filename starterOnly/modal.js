@@ -6,7 +6,6 @@ function editNav() {
     x.className = "topnav";
   }
 }
-
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
@@ -31,11 +30,11 @@ modalCloseBtn.forEach((btn) => btn.addEventListener("click", closeModal));
 function launchModal() {
   modalbg.style.display = "flex";
 }
-
+// close modal form
 function closeModal() {
   modalbg.style.display = "none";
 }
-
+// submit message
 modalForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const success = document.createElement('div');
@@ -52,10 +51,11 @@ function setSubmitButton() {
   function checkInputs() {
     const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
     const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/, "info-last-name", "valeur requise")
-    const emailStatus = champs(email,/@/,"info-mail","valeur avec un @ requise")
+    const emailStatus = champs(email, /@/, "info-mail", "valeur avec un @ requise")
+    const nbTournamentsStatus = champs(nbTournaments,/^[0-9]+$/,"info-nb-tournaments","valeur numerique requise")
   
     
-    return firstNameStatus && lastNameStatus && emailStatus
+    return firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus
   }
 
   function handleInput() {
@@ -66,6 +66,7 @@ function setSubmitButton() {
   firstName.addEventListener("input", handleInput);
   lastName.addEventListener("input", handleInput);
   email.addEventListener("input", handleInput);
+  nbTournaments.addEventListener("input", handleInput);
 }
 
 function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
