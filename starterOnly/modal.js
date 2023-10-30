@@ -15,6 +15,13 @@ const modalCloseBtn = document.querySelectorAll(".close");
 const modalBody = document.querySelector(".modal-body");
 const modalForm = document.querySelector(".modal-form")
 const btnSubmit = document.querySelector(".btn-submit")
+const firstName = document.getElementById("first");
+const lastName = document.getElementById("last");
+const email = document.getElementById("email");
+const nbTournaments = document.getElementById("quantity");
+const date = document.getElementById("birthdate");
+const termsAndConditions = document.getElementById("checkbox1")
+const buttonsRadio = document.querySelectorAll(".checkbox-input[type='radio']");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -40,3 +47,33 @@ modalForm.addEventListener("submit", (e) => {
   modalBody.appendChild(success);
   success.appendChild(successMessage);
 });
+
+function setSubmitButton() {
+  function checkInputs() {
+    const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
+  
+    
+    return firstNameStatus 
+  }
+
+  function handleInput() {
+    const isDisabled = !checkInputs();
+    disableSubmit(isDisabled);
+  }
+  handleInput()
+  firstName.addEventListener("input", handleInput);
+}
+
+function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
+  const status = regex.test(nomDuChamps.value);
+  if (status) {
+    document.getElementsByClassName(errorMessageClassName)[0].innerText = ""
+  }
+  else {
+    document.getElementsByClassName(errorMessageClassName)[0].innerText = errorMessage
+  }
+  return status
+}
+
+
+setSubmitButton()
