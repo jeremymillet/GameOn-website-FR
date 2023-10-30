@@ -51,9 +51,10 @@ modalForm.addEventListener("submit", (e) => {
 function setSubmitButton() {
   function checkInputs() {
     const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
+    const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/, "info-last-name", "valeur requise")
   
     
-    return firstNameStatus 
+    return firstNameStatus && lastNameStatus
   }
 
   function handleInput() {
@@ -62,6 +63,7 @@ function setSubmitButton() {
   }
   handleInput()
   firstName.addEventListener("input", handleInput);
+  lastName.addEventListener("input", handleInput);
 }
 
 function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
