@@ -54,8 +54,9 @@ function setSubmitButton() {
     const emailStatus = champs(email, /@/, "info-mail", "valeur avec un @ requise")
     const nbTournamentsStatus = champs(nbTournaments, /^[0-9]+$/, "info-nb-tournaments", "valeur numerique requise")
     const dateStatus = validerDate(date.value)
+    const termsAndConditionsStatus = verifierCheckbox(termsAndConditions)
   
-    return firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus
+    return firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus && termsAndConditionsStatus
   }
 
   function handleInput() {
@@ -68,6 +69,7 @@ function setSubmitButton() {
   email.addEventListener("input", handleInput);
   nbTournaments.addEventListener("input", handleInput);
   date.addEventListener("input", handleInput);
+  termsAndConditions.addEventListener("change", handleInput);
 }
 
 function disableSubmit(disabled) {
@@ -109,6 +111,15 @@ function validerDate(date) {
     else {
        document.getElementsByClassName("info-date")[0].innerText = ""
        return true;
+    }
+}
+function verifierCheckbox(checkbox) {
+    if (checkbox.checked) {
+      document.getElementsByClassName("info-checkbox")[0].innerText = ""
+       return true;
+    } else {
+      document.getElementsByClassName("info-checkbox")[0].innerText = "La case à cocher n'est pas cochée."
+       return false;
     }
 }
 
