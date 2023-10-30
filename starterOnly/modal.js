@@ -52,10 +52,10 @@ function setSubmitButton() {
     const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
     const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/, "info-last-name", "valeur requise")
     const emailStatus = champs(email, /@/, "info-mail", "valeur avec un @ requise")
-    const nbTournamentsStatus = champs(nbTournaments,/^[0-9]+$/,"info-nb-tournaments","valeur numerique requise")
+    const nbTournamentsStatus = champs(nbTournaments, /^[0-9]+$/, "info-nb-tournaments", "valeur numerique requise")
+    const dateStatus = validerDate(date.value)
   
-    
-    return firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus
+    return firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus
   }
 
   function handleInput() {
@@ -67,6 +67,19 @@ function setSubmitButton() {
   lastName.addEventListener("input", handleInput);
   email.addEventListener("input", handleInput);
   nbTournaments.addEventListener("input", handleInput);
+  date.addEventListener("input", handleInput);
+}
+
+function disableSubmit(disabled) {
+    if (disabled === true) {
+        document
+            .getElementById("btn-submit")
+            .setAttribute("disabled", true);
+    } else {
+        document
+            .getElementById("btn-submit")
+            .removeAttribute("disabled");
+    }
 }
 
 function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
@@ -79,6 +92,24 @@ function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
   }
   return status
 }
+function validerDate(date) {
+    const regexDate =/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+    if (!regexDate.test(date)) {
+       document.getElementsByClassName("info-date")[0].innerText ="La date est invalide. Utilisez le format AAAA-MM-JJ.";
+      return false;
+    }
 
+    const dateEntree = new Date(date);
+    const dateAujourdhui = new Date();
+
+    if (dateEntree > dateAujourdhui) {
+      document.getElementsByClassName("info-date")[0].innerText = "La date ne peut pas être dans le futur."
+      return false;
+    }
+    else {
+       document.getElementsByClassName("info-date")[0].innerText = ""
+       return true;
+    }
+}
 
 setSubmitButton()
