@@ -52,9 +52,10 @@ function setSubmitButton() {
   function checkInputs() {
     const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
     const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/, "info-last-name", "valeur requise")
+    const emailStatus = champs(email,/@/,"info-mail","valeur avec un @ requise")
   
     
-    return firstNameStatus && lastNameStatus
+    return firstNameStatus && lastNameStatus && emailStatus
   }
 
   function handleInput() {
@@ -64,6 +65,7 @@ function setSubmitButton() {
   handleInput()
   firstName.addEventListener("input", handleInput);
   lastName.addEventListener("input", handleInput);
+  email.addEventListener("input", handleInput);
 }
 
 function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
