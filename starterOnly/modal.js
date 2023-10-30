@@ -55,14 +55,16 @@ function setSubmitButton() {
     const nbTournamentsStatus = champs(nbTournaments, /^[0-9]+$/, "info-nb-tournaments", "valeur numerique requise")
     const dateStatus = validerDate(date.value)
     const termsAndConditionsStatus = verifierCheckbox(termsAndConditions)
+    const buttonsRadioStatus = checkRadioButton()
   
-    return firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus && termsAndConditionsStatus
+    return  firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus && termsAndConditionsStatus && buttonsRadioStatus;
   }
 
   function handleInput() {
     const isDisabled = !checkInputs();
     disableSubmit(isDisabled);
   }
+
   handleInput()
   firstName.addEventListener("input", handleInput);
   lastName.addEventListener("input", handleInput);
@@ -70,6 +72,8 @@ function setSubmitButton() {
   nbTournaments.addEventListener("input", handleInput);
   date.addEventListener("input", handleInput);
   termsAndConditions.addEventListener("change", handleInput);
+  buttonsRadio.forEach(bouton => bouton.addEventListener("change", checkRadioButton));
+
 }
 
 function disableSubmit(disabled) {
@@ -94,6 +98,7 @@ function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
   }
   return status
 }
+
 function validerDate(date) {
     const regexDate =/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
     if (!regexDate.test(date)) {
@@ -113,6 +118,7 @@ function validerDate(date) {
        return true;
     }
 }
+
 function verifierCheckbox(checkbox) {
     if (checkbox.checked) {
       document.getElementsByClassName("info-checkbox")[0].innerText = ""
@@ -121,6 +127,19 @@ function verifierCheckbox(checkbox) {
       document.getElementsByClassName("info-checkbox")[0].innerText = "La case à cocher n'est pas cochée."
        return false;
     }
+}
+
+function checkRadioButton() { 
+  const buttonsRadio = document.querySelectorAll(".checkbox-input[type='radio']");
+  const buttonsRadiosChecks = Array.from(buttonsRadio).some(bouton => bouton.checked);
+
+  if (buttonsRadiosChecks) { 
+     document.getElementsByClassName("info-radio")[0].innerText = ""
+    return true;
+  } else {
+     document.getElementsByClassName("info-radio")[0].innerText = "Veuillez sélectionner une ville."
+    return false;
+  }
 }
 
 setSubmitButton()
