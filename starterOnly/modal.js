@@ -56,6 +56,7 @@ function setSubmitButton() {
     const dateStatus = validerDate(date.value)
     const termsAndConditionsStatus = verifierCheckbox(termsAndConditions)
     const buttonsRadioStatus = checkRadioButton()
+    console.log(firstNameStatus,lastNameStatus , emailStatus, nbTournamentsStatus ,dateStatus , termsAndConditionsStatus , buttonsRadioStatus)
   
     return  firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus && termsAndConditionsStatus && buttonsRadioStatus;
   }
@@ -72,7 +73,7 @@ function setSubmitButton() {
   nbTournaments.addEventListener("input", handleInput);
   date.addEventListener("input", handleInput);
   termsAndConditions.addEventListener("change", handleInput);
-  buttonsRadio.forEach(bouton => bouton.addEventListener("change", checkRadioButton));
+  buttonsRadio.forEach(bouton => bouton.addEventListener("change", handleInput));
 
 }
 
@@ -134,7 +135,7 @@ function checkRadioButton() {
   const buttonsRadiosChecks = Array.from(buttonsRadio).some(bouton => bouton.checked);
 
   if (buttonsRadiosChecks) { 
-     document.getElementsByClassName("info-radio")[0].innerText = ""
+    document.getElementsByClassName("info-radio")[0].innerText = ""
     return true;
   } else {
      document.getElementsByClassName("info-radio")[0].innerText = "Veuillez sélectionner une ville."
