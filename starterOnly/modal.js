@@ -1,9 +1,9 @@
 function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  const nav = document.getElementById("myTopnav");
+  if (nav.className === "topnav") {
+    nav.className += " responsive";
   } else {
-    x.className = "topnav";
+    nav.className = "topnav";
   }
 }
 // DOM Elements
@@ -27,10 +27,17 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalCloseBtn.forEach((btn) => btn.addEventListener("click", closeModal));
 
 // launch modal form
+/**function that opens the modal
+ *
+ * @param {*}
+ */
 function launchModal() {
   modalbg.style.display = "flex";
 }
-// close modal form
+/**Function to close the modal
+ *
+ * @param {*}
+ */
 function closeModal() {
   modalbg.style.display = "none";
 }
@@ -48,6 +55,11 @@ modalForm.addEventListener("submit", (e) => {
 });
 
 function setSubmitButton() {
+  /**Function that validates input
+ *
+ * @param {*}
+ * @returns {boolean}
+ */
   function checkInputs() {
     const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
     const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/, "info-last-name", "valeur requise")
@@ -56,11 +68,13 @@ function setSubmitButton() {
     const dateStatus = validerDate(date.value)
     const termsAndConditionsStatus = verifierCheckbox(termsAndConditions)
     const buttonsRadioStatus = checkRadioButton()
-    console.log(firstNameStatus,lastNameStatus , emailStatus, nbTournamentsStatus ,dateStatus , termsAndConditionsStatus , buttonsRadioStatus)
-  
+
     return  firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus && termsAndConditionsStatus && buttonsRadioStatus;
   }
 
+  /**Function that checks the result of checkInputs and calls the function disableSubmit with the result in params
+ * @param {*}
+ */
   function handleInput() {
     const isDisabled = !checkInputs();
     disableSubmit(isDisabled);
@@ -76,7 +90,9 @@ function setSubmitButton() {
   buttonsRadio.forEach(bouton => bouton.addEventListener("change", handleInput));
 
 }
-
+/**Function that enables or disables the submit button depending on the parameter
+ * @param {boolean}
+ */
 function disableSubmit(disabled) {
     if (disabled === true) {
         document
@@ -88,7 +104,10 @@ function disableSubmit(disabled) {
             .removeAttribute("disabled");
     }
 }
-
+/**function to check the inputs
+ * @param {nomDuChamps(HTMLElement),regex(regexp),errorMessageClassName(string),errorMessage(string)}
+ * @returns {boolean}
+ */
 function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
   const status = regex.test(nomDuChamps.value);
   if (status) {
@@ -99,7 +118,10 @@ function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
   }
   return status
 }
-
+/**function to check the input date
+ * @param {date(HTMLElement)}
+ * @returns {boolean}
+ */
 function validerDate(date) {
     const regexDate =/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
     if (!regexDate.test(date)) {
@@ -119,7 +141,10 @@ function validerDate(date) {
        return true;
     }
 }
-
+/**function to check the checkbox
+ * @param {checkbox(HTMLElement)}
+ * @returns {boolean}
+ */
 function verifierCheckbox(checkbox) {
     if (checkbox.checked) {
       document.getElementsByClassName("info-checkbox")[0].innerText = ""
@@ -129,7 +154,10 @@ function verifierCheckbox(checkbox) {
        return false;
     }
 }
-
+/**function to check if one of the radio buttons is activated
+ * @param {}
+ * @returns {boolean}
+ */
 function checkRadioButton() { 
   const buttonsRadio = document.querySelectorAll(".checkbox-input[type='radio']");
   const buttonsRadiosChecks = Array.from(buttonsRadio).some(bouton => bouton.checked);
