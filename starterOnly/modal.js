@@ -28,15 +28,11 @@ modalCloseBtn.forEach((btn) => btn.addEventListener("click", closeModal));
 
 // launch modal form
 /**function that opens the modal
- *
- * @param {*}
  */
 function launchModal() {
   modalbg.style.display = "flex";
 }
 /**Function to close the modal
- *
- * @param {*}
  */
 function closeModal() {
   modalbg.style.display = "none";
@@ -55,11 +51,10 @@ modalForm.addEventListener("submit", (e) => {
 });
 
 function setSubmitButton() {
-  /**Function that validates input
- *
- * @param {*}
- * @returns {boolean}
- */
+  /**
+  * Function that validates input
+  * @returns {boolean}
+  */
   function checkInputs() {
     const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
     const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/, "info-last-name", "valeur requise")
@@ -72,9 +67,9 @@ function setSubmitButton() {
     return  firstNameStatus && lastNameStatus && emailStatus && nbTournamentsStatus && dateStatus && termsAndConditionsStatus && buttonsRadioStatus;
   }
 
-  /**Function that checks the result of checkInputs and calls the function disableSubmit with the result in params
- * @param {*}
- */
+  /**
+  * Function that checks the result of checkInputs and calls the function disableSubmit with the result in params
+  */
   function handleInput() {
     const isDisabled = !checkInputs();
     disableSubmit(isDisabled);
@@ -90,8 +85,9 @@ function setSubmitButton() {
   buttonsRadio.forEach(bouton => bouton.addEventListener("change", handleInput));
 
 }
-/**Function that enables or disables the submit button depending on the parameter
- * @param {boolean}
+/**
+ * Function that enables or disables the submit button depending on the parameter
+ * @param disabled {boolean}
  */
 function disableSubmit(disabled) {
     if (disabled === true) {
@@ -105,7 +101,11 @@ function disableSubmit(disabled) {
     }
 }
 /**function to check the inputs
- * @param {nomDuChamps(HTMLElement),regex(regexp),errorMessageClassName(string),errorMessage(string)}
+ * @param nomDuChamps {HTMLElement}
+ * @param regex {regexp} 
+ * @param errorMessageClassName {string} 
+ * @param errorMessage {string}
+ * 
  * @returns {boolean}
  */
 function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
@@ -118,8 +118,9 @@ function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
   }
   return status
 }
-/**function to check the input date
- * @param {date(HTMLElement)}
+/**
+ * function to check the input date
+ * @param date {HTMLElement}
  * @returns {boolean}
  */
 function validerDate(date) {
@@ -141,8 +142,9 @@ function validerDate(date) {
        return true;
     }
 }
-/**function to check the checkbox
- * @param {checkbox(HTMLElement)}
+/**
+ * function to check the checkbox
+ * @param checkbox {HTMLElement}
  * @returns {boolean}
  */
 function verifierCheckbox(checkbox) {
@@ -154,8 +156,8 @@ function verifierCheckbox(checkbox) {
        return false;
     }
 }
-/**function to check if one of the radio buttons is activated
- * @param {}
+/**
+ * function to check if one of the radio buttons is activated
  * @returns {boolean}
  */
 function checkRadioButton() { 
