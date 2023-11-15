@@ -599,18 +599,6 @@ footer {
 
 }
 
-.info-first-name,
-.info-last-name,
-.info-date,
-.info-mail,
-.info-checkbox,
-.info-radio,
-.info-nb-tournaments{
-  color: red;
-  font-size: 10px;
-  height: 14px;
-}
-
 .success {
   display: flex;
   align-items: center;
@@ -631,16 +619,6 @@ footer {
   #btn-submit {
     margin-top: 20px;
   }
-  .info-first-name,
-  .info-last-name,
-  .info-date,
-  .info-mail,
-  .info-checkbox,
-  .info-radio,
-  .info-nb-tournaments {
-    font-size: 14px;
-    height: 25px;
-  }
   .text-control{
     height: 55px;
   }
@@ -648,16 +626,6 @@ footer {
 @media (max-height: 860px){
   #btn-submit {
     margin-top: 10px;
-  }
-  .info-first-name,
-  .info-last-name,
-  .info-date,
-  .info-mail,
-  .info-checkbox,
-  .info-radio,
-  .info-nb-tournaments {
-    font-size: 10px;
-    height: 16px;
   }
     .text-control {
       height: 30px;

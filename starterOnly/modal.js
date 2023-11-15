@@ -22,6 +22,7 @@ const date = document.getElementById("birthdate");
 const termsAndConditions = document.getElementById("checkbox1")
 const buttonsRadio = document.querySelectorAll(".checkbox-input[type='radio']");
 
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalCloseBtn.forEach((btn) => btn.addEventListener("click", closeModal));
@@ -56,11 +57,11 @@ function setSubmitButton() {
   * @returns {boolean}
   */
   function checkInputs() {
-    const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/, "info-first-name", "valeur requise")
-    const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/, "info-last-name", "valeur requise")
-    const emailStatus = champs(email, /@/, "info-mail", "valeur avec un @ requise")
-    const nbTournamentsStatus = champs(nbTournaments, /^[0-9]+$/, "info-nb-tournaments", "valeur numerique requise")
-    const dateStatus = validerDate(date.value)
+    const firstNameStatus = champs(firstName, /^[a-zA-Z]{2,}$/)
+    const lastNameStatus = champs(lastName, /^[a-zA-Z]{2,}$/)
+    const emailStatus = champs(email, /@/)
+    const nbTournamentsStatus = champs(nbTournaments, /^[0-9]+$/)
+    const dateStatus = validerDate(date)
     const termsAndConditionsStatus = verifierCheckbox(termsAndConditions)
     const buttonsRadioStatus = checkRadioButton()
 
@@ -75,7 +76,7 @@ function setSubmitButton() {
     disableSubmit(isDisabled);
   }
 
-  handleInput()
+  //handleInput()
   firstName.addEventListener("input", handleInput);
   lastName.addEventListener("input", handleInput);
   email.addEventListener("input", handleInput);
@@ -90,15 +91,11 @@ function setSubmitButton() {
  * @param disabled {boolean}
  */
 function disableSubmit(disabled) {
-    if (disabled === true) {
-        document
-            .getElementById("btn-submit")
-            .setAttribute("disabled", true);
-    } else {
-        document
-            .getElementById("btn-submit")
-            .removeAttribute("disabled");
-    }
+  if (disabled === false) {
+    document
+      .getElementById("btn-submit")
+      .removeAttribute("disabled");
+  }
 }
 /**function to check the inputs
  * @param nomDuChamps {HTMLElement}
@@ -108,13 +105,13 @@ function disableSubmit(disabled) {
  * 
  * @returns {boolean}
  */
-function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
+function champs( nomDuChamps, regex) {
   const status = regex.test(nomDuChamps.value);
   if (status) {
-    document.getElementsByClassName(errorMessageClassName)[0].innerText = ""
+    nomDuChamps.parentElement.setAttribute('data-error-visible', "false");
   }
   else {
-    document.getElementsByClassName(errorMessageClassName)[0].innerText = errorMessage
+    nomDuChamps.parentElement.setAttribute('data-error-visible', "true");
   }
   return status
 }
@@ -124,21 +121,24 @@ function champs( nomDuChamps, regex,errorMessageClassName,errorMessage) {
  * @returns {boolean}
  */
 function validerDate(date) {
-    const regexDate =/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
-    if (!regexDate.test(date)) {
-       document.getElementsByClassName("info-date")[0].innerText ="La date est invalide. Utilisez le format AAAA-MM-JJ.";
+  const regexDate = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+  
+  if (!regexDate.test(date.value)) {
+    date.parentElement.setAttribute('data-error-visible', "true");
+    date.parentElement.setAttribute("data-error","La date doit avoir le format JJ/MM/YYYY");
       return false;
     }
 
-    const dateEntree = new Date(date);
+  const dateEntree = new Date(date.value);
     const dateAujourdhui = new Date();
 
     if (dateEntree > dateAujourdhui) {
-      document.getElementsByClassName("info-date")[0].innerText = "La date ne peut pas être dans le futur."
+      date.parentElement.setAttribute('data-error-visible', "true");
+      date.parentElement.setAttribute("data-error", "La date ne peut être dans le futur");
       return false;
     }
     else {
-       document.getElementsByClassName("info-date")[0].innerText = ""
+       date.parentElement.setAttribute('data-error-visible', "false");
        return true;
     }
 }
@@ -149,10 +149,10 @@ function validerDate(date) {
  */
 function verifierCheckbox(checkbox) {
     if (checkbox.checked) {
-      document.getElementsByClassName("info-checkbox")[0].innerText = ""
+      checkbox.parentElement.setAttribute('data-error-visible', "false");
        return true;
     } else {
-      document.getElementsByClassName("info-checkbox")[0].innerText = "La case à cocher n'est pas cochée."
+      checkbox.parentElement.setAttribute('data-error-visible', "true");
        return false;
     }
 }
@@ -165,10 +165,10 @@ function checkRadioButton() {
   const buttonsRadiosChecks = Array.from(buttonsRadio).some(bouton => bouton.checked);
 
   if (buttonsRadiosChecks) { 
-    document.getElementsByClassName("info-radio")[0].innerText = ""
+    buttonsRadio[0].parentElement.setAttribute('data-error-visible', "false");
     return true;
   } else {
-     document.getElementsByClassName("info-radio")[0].innerText = "Veuillez sélectionner une ville."
+     buttonsRadio[0].parentElement.setAttribute('data-error-visible', "true");
     return false;
   }
 }

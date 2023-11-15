@@ -62,9 +62,11 @@
               action=""
             >
               <div
-                class="formData">
+                class="formData"
+                data-error="Votre réponse ne doit pas contenir des caractères spéciaux ou de nombre"
+                data-error-visible="false">
                 <label for="first">Prénom</label><br>
-                <p class="info-first-name"></p>
+                
                 <input
                   class="text-control"
                   type="text"
@@ -74,7 +76,9 @@
                 /><br>
               </div>
               <div
-                class="formData">
+                class="formData"
+                data-error="Votre réponse ne doit pas contenir des caractères spéciaux ou de nombre"
+                data-error-visible="false">
                 <label for="last">Nom</label><br>
                 <p class="info-last-name"></p>
                 <input
@@ -85,7 +89,9 @@
                 /><br>
               </div>
               <div
-                class="formData">
+                class="formData"
+                data-error="Votre réponse doit contenir un @"
+                data-error-visible="false">
                 <label for="email">E-mail</label><br>
                 <p class="info-mail"></p>
                 <input
@@ -96,7 +102,9 @@
                 /><br>
               </div>
               <div
-                class="formData">
+                class="formData"
+                data-error="test"
+                data-error-visible="false">
                 <label for="birthdate">Date de naissance</label><br>
                 <p class="info-date"></p>
                 <input
@@ -107,7 +115,9 @@
                 /><br>
               </div>
               <div
-                class="formData">
+                class="formData"
+                data-error="Vous devez mettre un nombre"
+                data-error-visible="false">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <p class="info-nb-tournaments"></p>
                 <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
@@ -115,7 +125,9 @@
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <p class="info-radio"></p>
               <div
-                class="formData">
+                class="formData"
+                data-error="Vous devez choisir une option."
+                data-error-visible="false">
                 <input
                   class="checkbox-input"
                   type="radio"
@@ -185,7 +197,9 @@
               </div>
 
               <div
-                class="formData">
+                class="formData"
+                data-error="Vous devez vérifier que vous acceptez les termes et conditions."
+                data-error-visible="false">
                 <p class="info-checkbox"></p>
                 <input
                   class="checkbox-input"
@@ -210,6 +224,7 @@
                 type="submit"
                 class="button"
                 value="C'est parti"
+                disabled
               />
             </form>
           </div>
