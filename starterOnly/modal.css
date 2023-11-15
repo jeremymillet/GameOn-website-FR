@@ -238,7 +238,7 @@ input {
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
+  text-align: left;
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
@@ -534,7 +534,11 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-
+@media  (max-width: 950px) {
+  .hero-headline {
+      font-size: 5rem;
+    }
+}
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
